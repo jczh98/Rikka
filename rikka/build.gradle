@@ -38,8 +38,16 @@ dependencies {
 
     // AndroidX
     def androidx_version = '1.0.0'
-    compileOnly "androidx.appcompat:appcompat:$androidx_version"
-    compileOnly "androidx.legacy:legacy-support-v4:$androidx_version"
+    implementation "androidx.appcompat:appcompat:$androidx_version"
+    implementation "androidx.legacy:legacy-support-v4:$androidx_version"
+
+    // Rxjava2
+    implementation "io.reactivex.rxjava2:rxjava:2.1.14"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // Icepick
+    implementation 'frankiesardo:icepick:3.2.0'
+    kapt 'frankiesardo:icepick-processor:3.2.0'
 }
 repositories {
     mavenCentral()
