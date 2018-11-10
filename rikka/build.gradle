@@ -48,6 +48,9 @@ dependencies {
     // Icepick
     implementation 'frankiesardo:icepick:3.2.0'
     kapt 'frankiesardo:icepick-processor:3.2.0'
+
+    // RxRelay
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
 }
 repositories {
     mavenCentral()
