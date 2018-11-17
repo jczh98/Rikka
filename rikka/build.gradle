@@ -28,6 +28,12 @@ android {
 
 }
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -51,6 +57,10 @@ dependencies {
 
     // RxRelay
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.2"
 }
 repositories {
     mavenCentral()
