@@ -37,3 +37,13 @@ val Context.powerManager: PowerManager
  */
 val Context.connectivityManager: ConnectivityManager
     get() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+/**
+ * Display a toast in this context.
+ *
+ * @param text the text to display.
+ * @param duration the duration of the toast. Defaults to short.
+ */
+fun Context.toast(text: String?, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, text.orEmpty(), duration).show()
+}
