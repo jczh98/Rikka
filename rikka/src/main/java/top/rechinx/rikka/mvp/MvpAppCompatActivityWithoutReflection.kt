@@ -30,6 +30,7 @@ abstract class MvpAppCompatActivityWithoutReflection<P : Presenter<*>> : AppComp
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
             presenterDelegate.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_STATE_KEY))
+        presenterDelegate.onResume(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -37,18 +38,9 @@ abstract class MvpAppCompatActivityWithoutReflection<P : Presenter<*>> : AppComp
         outState.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState())
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenterDelegate.onResume(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenterDelegate.onDropView()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+        presenterDelegate.onDropView()
         presenterDelegate.onDestroy(!isChangingConfigurations)
     }
 }

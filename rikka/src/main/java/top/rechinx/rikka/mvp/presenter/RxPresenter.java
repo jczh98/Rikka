@@ -17,6 +17,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import top.rechinx.rikka.mvp.presenter.delivery.DeliverFirst;
 import top.rechinx.rikka.mvp.presenter.delivery.DeliverLatestCache;
 import top.rechinx.rikka.mvp.presenter.delivery.DeliverReplay;
+import top.rechinx.rikka.mvp.presenter.delivery.DeliverWithView;
 import top.rechinx.rikka.mvp.presenter.delivery.Delivery;
 import top.rechinx.rikka.mvp.view.OptionalView;
 
@@ -248,6 +249,19 @@ public class RxPresenter<View> extends Presenter<View> {
      */
     public <T> DeliverReplay<View, T> deliverReplay() {
         return new DeliverReplay<>(views);
+    }
+
+    /**
+     * Returns an {@link io.reactivex.ObservableTransformer} that couples views with data that has been emitted by
+     * the source {@link io.reactivex.Observable}.
+     *
+     * {@link #deliverWithView} keeps all onNext values and only emits to the view if attached, otherwise the event is ignored.
+     * If a new onNext value appears while a view is attached, it will be delivered immediately.
+     *
+     * @param <T> the type of source observable emissions
+     */
+    public <T> DeliverWithView<View, T> deliverWithView() {
+        return new DeliverWithView<>(views);
     }
 
     /**

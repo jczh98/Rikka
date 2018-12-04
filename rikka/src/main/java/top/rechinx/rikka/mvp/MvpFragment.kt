@@ -29,6 +29,7 @@ abstract class MvpFragment<P : Presenter<*>> : Fragment(), ViewWithPresenter<P> 
         super.onCreate(bundle)
         if (bundle != null)
             presenterDelegate.onRestoreInstanceState(bundle.getBundle(PRESENTER_STATE_KEY))
+        presenterDelegate.onResume(this)
     }
 
     override fun onSaveInstanceState(bundle: Bundle) {
@@ -36,18 +37,9 @@ abstract class MvpFragment<P : Presenter<*>> : Fragment(), ViewWithPresenter<P> 
         bundle.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState())
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenterDelegate.onResume(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenterDelegate.onDropView()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+        presenterDelegate.onDropView()
         presenterDelegate.onDestroy(!activity!!.isChangingConfigurations)
     }
 

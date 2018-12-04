@@ -60,27 +60,6 @@ open class BasePresenter<V> : RxPresenter<V>() {
      * @param onError function to execute when the observable throws an error.
      */
     fun <T> Observable<T>.subscribeWithView(onNext: (V, T) -> Unit, onError: ((V, Throwable) -> Unit)? = null)
-            = compose(DeliverWithView<V, T>(view())).subscribe(split(onNext, onError)).apply { add(this) }
+            = compose(deliverWithView<T>()).subscribe(split(onNext, onError)).apply { add(this) }
 
-    /**
-     * A deliverable that only emits to the view if attached, otherwise the event is ignored.
-     */
-    class DeliverWithView<View, T>(private val view: Observable<OptionalView<View>>) : ObservableTransformer<T, Delivery<View, T>> {
-
-        override fun apply(observable: Observable<T>): ObservableSource<Delivery<View, T>> {
-            return observable
-                .materialize()
-                .filter { notification -> !notification.isOnComplete }
-                .flatMap { notification ->
-                    view.take(1)
-                        .filter { it != null }
-                        .map {
-                            return@map if(isValid(it, notification))
-                                Delivery<View, T>(it.view, notification)
-                            else null
-                        }
-                }
-        }
-
-    }
 }
