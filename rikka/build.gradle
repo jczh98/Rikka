@@ -19,6 +19,10 @@ android {
 
     }
 
+    sourceSets{
+        main.res.srcDirs 'res', 'res-public'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -47,6 +51,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_version"
     implementation "androidx.legacy:legacy-support-v4:$androidx_version"
     implementation "androidx.preference:preference:$androidx_version"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.2"
+    implementation "com.google.android.material:material:$androidx_version"
 
     // Rxjava2
     implementation "io.reactivex.rxjava2:rxjava:2.1.14"
